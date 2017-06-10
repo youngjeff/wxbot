@@ -1,0 +1,67 @@
+{% extends "bot/base.html" %}
+	{% load staticfiles %}	
+{% block title_block %}
+Index
+{% endblock %}
+{% block body_block %}
+<link href="http://v4-alpha.getbootstrap.com/examples/signin/signin.css" rel="stylesheet">
+<script>
+
+  $(document).ready(function(){
+	$("#getwx").click(function(){
+   $.ajax({
+            url:"/bot/getwx/",
+            type:'GET',
+            success: function (data) {
+          				alert("Please use WeChat to scan the QR code");
+						document.getElementById('qr').style.display = "block";
+						window.location.reload();
+    		
+			$.ajax({
+            url:"/bot/wait/",
+            type:'GET',
+            success: function (arg) {
+			
+			}})
+		}
+			
+			
+        });
+	})
+	});
+</script>
+<script>
+$(document).ready(function(){
+    $("#check").click(function(){
+   $.ajax({
+            url:"/bot/check/",
+            type:'GET',
+            success: function (data) {
+				data = JSON.parse(data);
+				if (data["satus"] == "error"){
+					alert(data["satus"]);
+		
+			}
+				else{
+				if (data["status"] == "sucess!"){
+				alert(data["status"]);
+        	    window.location.href='bot/qrcode';
+				}
+			}}
+        });
+    })
+    });
+
+</script>
+<div class="jumbotron" style="text-align:center">
+欢迎使用微信机器人 
+<input class="btn btn-success" type="button" id="getwx" value="刷新" />
+<input class="btn btn-success" type="button" id="check" value="验证" />
+
+</div>
+<div align="center"><img src="{% static 'images/wxqr.png' %} "  style='text-align:center' id="qr" class="img-thumbnail" style='display:none'>
+</div>
+
+{% endblock %}
+
+

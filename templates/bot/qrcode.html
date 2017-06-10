@@ -1,0 +1,15 @@
+{% extends 'bot/base.html' %}
+{% load staticfiles %}
+{% block title_block %}
+		qrcode
+{% endblock %}
+<link href="http://v4-alpha.getbootstrap.com/examples/signin/signin.css" rel="stylesheet">
+
+{% block body_block %}
+<div class="jumbotron" style="text-align:center">
+恭喜成功登陆！
+<a href="{% url 'index' %}" class="btn btn-success">返回</a>  
+
+</div>
+
+{% endblock %}

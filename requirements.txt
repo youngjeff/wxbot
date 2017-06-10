@@ -1,0 +1,9 @@
+django
+django-bootstrap-toolkit
+django-registration-redux
+Pillow
+bcrypt
+requests
+pyqrcode
+pypng
+
