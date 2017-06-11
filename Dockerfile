@@ -1,10 +1,12 @@
-FROM python:2.7-alpine
+FROM docker.io/thiagofalcao/python2.7
 ENV PATH /usr/local/bin:$PATH
 ENV PATH /home:$PATH
+ENV LANG=C.UTF-8
 ADD . /home
 WORKDIR /home
-RUN apk update && apk add zlib-dev && apk add jpeg-dev && apk add alpine-sdk
-RUN pip install -i https://mirrors.aliyun.com/pypi/simple -r requirements.txt
+RUN apt-get update
+RUN apt-get install -y libtiff5-dev libjpeg8-dev zlib1g-dev libfreetype6-dev liblcms2-dev libwebp-dev tcl8.6-dev tk8.6-dev python-tk
+RUN pip install -r requirements.txt
+RUN pip install --upgrade requests
 EXPOSE 8000
-CMD python manage.py runserver
-
+CMD python manage.py runserver 0:8000
