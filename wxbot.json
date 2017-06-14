@@ -1,0 +1,82 @@
+{
+  "volumes": null,
+  "id": "/webbot",
+  "cmd": null,
+  "args": null,
+  "user": null,
+  "env": null,
+  "instances": 1,
+  "cpus": 0.1,
+  "mem": 128,
+  "disk": 0,
+  "gpus": 0,
+  "executor": null,
+  "constraints": null,
+  "fetch": null,
+  "storeUrls": null,
+  "backoffSeconds": 1,
+  "backoffFactor": 1.15,
+  "maxLaunchDelaySeconds": 3600,
+  "container": {
+    "docker": {
+      "image": "docker.dcos.demo01.nlabs.sg/wxbot",
+      "forcePullImage": false,
+      "privileged": false,
+      "parameters": [
+        {
+          "key": "interactive",
+          "value": "false"
+        },
+        {
+          "key": "tty",
+          "value": "true"
+        }
+      ],
+      "portMappings": [
+        {
+          "containerPort": 8000,
+          "protocol": "tcp",
+          "servicePort": 10115,
+          "labels": {
+            "VIP_0": "/webbot:8000"
+          }
+        }
+      ],
+      "network": "BRIDGE"
+    }
+  },
+  "healthChecks": [
+    {
+      "protocol": "HTTP",
+      "path": "/",
+      "gracePeriodSeconds": 300,
+      "intervalSeconds": 30,
+      "timeoutSeconds": 2,
+      "maxConsecutiveFailures": 5,
+      "ignoreHttp1xx": false
+    }
+  ],
+  "readinessChecks": null,
+  "dependencies": null,
+  "upgradeStrategy": {
+    "minimumHealthCapacity": 1,
+    "maximumOverCapacity": 1
+  },
+  "labels": {
+    "HAPROXY_0_VHOST": "wxbot.dcos.demo02.nlabs.sg",
+    "HAPROXY_GROUP": "external"
+  },
+  "acceptedResourceRoles": null,
+  "residency": null,
+  "secrets": null,
+  "taskKillGracePeriodSeconds": null,
+  "portDefinitions": [
+    {
+      "port": 10115,
+      "protocol": "tcp",
+      "name": "8000",
+      "labels": {}
+    }
+  ],
+  "requirePorts": false
+}
